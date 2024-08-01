@@ -11,10 +11,7 @@
       <!-- Activity 6: Render a list containing author names and their birth years. Hint: Make use of the v-for directive to iterate through the array of authors. -->
       <!-- TODO: CODE TO RENDER LIST OF AUTHORS HERE -->
       <ul>
-        <!-- <li v-for="author in authors" :key="author.id">
-          {{ author.name }} ({{ author.birthYear }})
-        </li> -->
-        <li v-for="author in authors" :key="author.id" :class="{ highlight: author.name === 'George Orwell' }">
+        <li v-for="author in authors" :key="author.id">
           {{ author.name }} ({{ author.birthYear }})
         </li>
       </ul>
@@ -24,10 +21,7 @@
       <p>Authors born after 1850:</p>
       <!-- TODO: CODE TO RENDER LIST OF AUTHORS HERE -->
       <ul>
-        <!-- <li v-for="author in modernAuthors" :key="author.id">
-          {{ author.name }} ({{ author.birthYear }})
-        </li> -->
-        <li v-for="author in modernAuthors" :key="author.id" :class="{ highlight: author.name === 'George Orwell' }">
+        <li v-for="author in modernAuthors" :key="author.id">
           {{ author.name }} ({{ author.birthYear }})
         </li>
       </ul>
@@ -94,7 +88,7 @@
       <h3>Working with Arrays in Objects</h3>
       <!-- Activity 12: Get the top sellers from the bookstores object. -->
       <!-- TODO: CODE TO GET TOP SELLERS HERE -->
-      <p>We operate ijn:{{ bookstores.countries.join(', ') }}</p>
+      <p>We operate in:{{ bookstores.countries.join(', ') }}</p>
       <p>Our #1 seller:{{ bookstores.topSellers[0] }}</p>
     </section>
 
@@ -104,9 +98,7 @@
       <!-- Activity 13: Toggle the message visibility when the button is clicked. -->
       <!-- TODO: CODE TO TOGGLE MESSAGE VISIBILITY HERE. Hint: Use the v-if directive. -->
       <button @click="showMessage = !showMessage">Toggle Message</button>
-      <p v-if="showMessage" class="message success">
-        ✨ You're a Vue superstar! ✨
-      </p>
+      <p v-if="showMessage" class="message success">✨ You're a Vue superstar! ✨</p>
       <p v-else class="message">Click the button to see a message.</p>
     </section>
 
@@ -114,7 +106,11 @@
       <h2>Attribute, Class and Style Binding with <code>v-bind</code></h2>
       <p>Highlighting Specific Authors:</p>
       <ul>
-        <li v-for="author in authors" :key="author.id" :class="{ highlight: author.name === 'George Orwell' }">
+        <li
+          v-for="author in authors"
+          :key="author.id"
+          :class="{ highlight: author.name === 'George Orwell' }"
+        >
           {{ author.name }} ({{ author.birthYear }})
         </li>
       </ul>
@@ -134,25 +130,26 @@ const showMessage = ref(false)
 
 // Activity 2: Get authors born after 1850
 const modernAuthors = computed(() =>
-// TODO: CODE TO FILTER ARRAY OF AUTHORS HERE
+  // TODO: CODE TO FILTER ARRAY OF AUTHORS HERE
   authors.filter((author) => author.birthYear > 1850)
-);
+)
 
 // Activity 3: Get all famous works
-const allFamousWorks = computed(() => 
+const allFamousWorks = computed(() =>
   // TODO: CODE TO GET ALL FAMOUS WORKS HERE
   authors.flatMap((author) => author.famousWorks.map((work) => work.title))
 )
 
 // Activity 4: Find author by name
-const orwell = computed(() => 
-  // TODO: CODE TO FIND AUTHOR BY NAME HERE
-  authors.find((author) => author.name === 'George Orwell')
+const orwell = computed(
+  () =>
+    // TODO: CODE TO FIND AUTHOR BY NAME HERE
+    authors.find((author) => author.name === 'George Orwell')
   // authors.filter((author) => author.name.includes('George Orwell'))
 )
 
 // Activity 5: Find author by ID
-const austen = computed(() => 
+const austen = computed(() =>
   // TODO: CODE TO FIND AUTHOR BY ID HERE
   authors.find((author) => author.id === 1)
 )
