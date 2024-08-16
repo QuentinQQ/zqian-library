@@ -24,10 +24,18 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6 col-sm-6">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="isAustralian" v-model="formData.isAustralian">
-                                <label class="form-check-label" for="isAustralian">Australian Resident?</label>
+                            <label>Australian Resident</label>
+                            <div>
+                                <label>
+                                <input type="radio" name="isAustralian" value="true" v-model="formData.isAustralian" @change="validateIsAustralian">
+                                Yes
+                                </label>
+                                <label class="ms-3">
+                                <input type="radio" name="isAustralian" value="false" v-model="formData.isAustralian" @change="validateIsAustralian">
+                                No
+                                </label>
                             </div>
+                            <div v-if="errors.isAustralian" class="text-danger">{{ errors.isAustralian }}</div>
                         </div>
                         <div class="col-md-6 col-sm-6">
                             <label for="gender" class="form-label">Gender</label>
@@ -60,18 +68,14 @@
     </div>
     <div class="row mt-5" v-if="submittedCards.length">
         <div class="d-flex flex-wrap justify-content-start">
-            <div v-for="(card, index) in submittedCards" :key="index" class="card m-2" style="width: 18rem;">
-                <div class="card-header">
-                    User Information
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Username: {{ card.username }}</li>
-                    <li class="list-group-item">Password: {{ card.password }}</li>
-                    <li class="list-group-item">Australian Resident: {{ card.isAustralian ? 'Yes' : 'No' }}</li>
-                    <li class="list-group-item">Gender: {{ card.gender }}</li>
-                    <li class="list-group-item">Reason: {{ card.reason }}</li>
-                </ul>
-            </div>
+            <!-- change DataTable style to display -->
+            <DataTable :value="submittedCards">
+                <Column field="username" header="Username"></Column>
+                <Column field="password" header="Password"></Column>
+                <Column field="isAustralian" header="Australian Resident" :body="isAustralianTemplate"></Column>
+                <Column field="gender" header="Gender"></Column>
+                <Column field="reason" header="Reason"></Column>
+            </DataTable>
         </div>
     </div>
 </template>
@@ -85,7 +89,7 @@ import Column from 'primevue/column';
 const formData = ref({
     username: '',
     password: '',
-    isAustralian: false,
+    isAustralian: null, // changed to null
     reason: '',
     gender: ''
 });
@@ -94,8 +98,12 @@ const submittedCards = ref([]);
 
 const submitForm = () => {
     validateName(true);
+    validatePassword(true);
+    validateGender(true);
+    validateReason(true);
+    validateIsAustralian();
 
-    if (!errors.value.username && !errors.value.password && !errors.value.gender && !errors.value.reason) {
+    if (!errors.value.username && !errors.value.password && !errors.value.gender && !errors.value.reason && !errors.value.isAustralian) {
         submittedCards.value.push({...formData.value});
         clearForm();
     }
@@ -105,12 +113,20 @@ const clearForm = () => {
     formData.value = {
         username: '',
         password: '',
-        isAustralian: false,
+        isAustralian: null, // change to null
         reason: '',
         gender: ''
     };
-    submittedCards.value = [];
-    }; 
+
+    // clear errors
+    errors.value = {
+        username: null,
+        password: null,
+        isAustralian: null,
+        gender: null,
+        reason: null
+    };
+}; 
 
 const errors = ref({
     username: null,
@@ -166,6 +182,14 @@ const validateReason = (blur) => {
     if(blur) errors.value.reason = "Reason for joining cannot exceed 50 characters.";
   } else {
     errors.value.reason = null;
+  }
+};
+
+const validateIsAustralian = () => {
+  if (formData.value.isAustralian === null) {
+    errors.value.isAustralian = "Please select Yes or No.";
+  } else {
+    errors.value.isAustralian = null;
   }
 };
 
