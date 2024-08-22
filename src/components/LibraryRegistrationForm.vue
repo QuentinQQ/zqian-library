@@ -90,6 +90,16 @@ const validateConfirmPassword = (blur) => {
     errors.value.confirmPassword = null;
   }
 }
+
+const validateReason = (blur) => {
+  const reason = formData.value.reason.toLowerCase();
+  if (reason.includes('friend')) {
+    errors.value.reason = 'Great to have a friend';
+  } else {
+    errors.value.reason = null;
+  }
+}
+
 </script>
 
 <template>
@@ -173,8 +183,11 @@ const validateConfirmPassword = (blur) => {
               class="form-control"
               id="reason"
               rows="3"
+              @blur="() => validateReason(true)"
+              @input="() => validateReason(false)"
               v-model="formData.reason"
             ></textarea>
+            <div v-if="errors.reason" class="text-success">{{ errors.reason }}</div>
           </div>
           <div class="text-center">
             <button type="submit" class="btn btn-primary me-2">Submit</button>
