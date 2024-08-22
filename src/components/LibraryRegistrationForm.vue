@@ -28,9 +28,18 @@ const clearForm = () => {
   formData.value = {
     username: '',
     password: '',
+    confirmPassword: '',
     isAustralian: false,
     reason: '',
     gender: ''
+  }
+  errors.value = {
+    username: null,
+    password: null,
+    confirmPassword: null,
+    resident: null,
+    gender: null,
+    reason: null
   }
 }
 
@@ -136,6 +145,7 @@ const validateConfirmPassword = (blur) => {
                 type="password"
                 class="form-control"
                 id="confirm-password"
+                @blur="() => validateConfirmPassword(true)"
                 v-model="formData.confirmPassword"
               />
               <div v-if="errors.confirmPassword" class="text-danger">
