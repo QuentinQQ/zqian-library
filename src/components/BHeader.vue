@@ -30,14 +30,9 @@ import { useAuth } from '../router/authenticate'
 const { isAuthenticated, logout } = useAuth()
 
 const handleLogout = () => {
-  if (router.currentRoute.value.name === 'About') {
-    logout()
-    alert('You have been logged out.')
-    // router.push({ name: 'Home' })
-  } else {
-    logout()
-    alert('You have been logged out.')
-  }
+  logout()
+  alert('You have been logged out.')
+  router.push({ name: 'Login' })
 }
 </script>
 
