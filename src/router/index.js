@@ -27,11 +27,6 @@ const routes = [{
         path: '/about',
         name: 'About',
         component: AboutView
-    },
-    {
-        path: '/login',
-        name: 'Login',
-        component: LoginView
     }
 ]
 
