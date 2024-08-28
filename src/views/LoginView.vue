@@ -47,14 +47,12 @@ import { useAuth } from '../router/authenticate'
 
 const hardcodePassword = 'Aa123456'
 const hardcodeUsername = 'User'
-const { isAuthenticated, login, logout } = useAuth()
+const { isAuthenticated, login } = useAuth()
 
 const formData = ref({
   username: '',
   password: ''
 })
-
-const submittedCards = ref([])
 
 const submitForm = () => {
   validateName(true)

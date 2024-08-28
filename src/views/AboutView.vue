@@ -7,7 +7,7 @@
         resources to our community.
       </p>
     </div>
-    <div v-else>
+    <div v-else class="fail">
       <h1 class="text-center">Access Denied</h1>
       <p class="text-center">You do not have permission to view this page. Please log in first.</p>
       <div class="text-center">
@@ -23,4 +23,14 @@ import { useAuth } from '../router/authenticate'
 const { isAuthenticated } = useAuth() // Correctly import and use the authentication state
 </script>
 
-<style></style>
+<style>
+.fail h1 {
+  color: red;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.fail p {
+  margin-bottom: 20px;
+}
+</style>

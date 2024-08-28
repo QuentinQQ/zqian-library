@@ -33,7 +33,7 @@ const handleLogout = () => {
   if (router.currentRoute.value.name === 'About') {
     logout()
     alert('You have been logged out.')
-    router.push({ name: 'Home' })
+    // router.push({ name: 'Home' })
   } else {
     logout()
     alert('You have been logged out.')

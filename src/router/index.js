@@ -8,7 +8,6 @@ import LoginView from '@/views/LoginView.vue'
 import {
     useAuth
 } from './authenticate'
-import AuthDeniedView from '@/views/AuthDeniedView.vue'
 
 const {
     isAuthenticated
