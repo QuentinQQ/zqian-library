@@ -1,108 +1,3 @@
-<script setup>
-import { ref } from 'vue'
-import DataTable from 'primevue/datatable'
-import Column from 'primevue/column'
-
-const formData = ref({
-  username: '',
-  password: '',
-  confirmPassword: '',
-  isAustralian: false,
-  reason: '',
-  gender: '',
-  // suburb: 'Clayton'
-})
-
-const submittedCards = ref([])
-
-const submitForm = () => {
-  validateName(true)
-  validatePassword(true)
-  validateConfirmPassword(true);
-  if (!errors.value.username && !errors.value.password && !errors.value.confirmPassword) {
-    submittedCards.value.push({ ...formData.value })
-    clearForm()
-  }
-}
-
-const clearForm = () => {
-  formData.value = {
-    username: '',
-    password: '',
-    confirmPassword: '',
-    isAustralian: false,
-    reason: '',
-    gender: ''
-  }
-  errors.value = {
-    username: null,
-    password: null,
-    confirmPassword: null,
-    resident: null,
-    gender: null,
-    reason: null
-  }
-}
-
-const errors = ref({
-  username: null,
-  password: null,
-  confirmPassword: null,
-  resident: null,
-  gender: null,
-  reason: null
-})
-
-const validateName = (blur) => {
-  if (formData.value.username.length < 3) {
-    if (blur) errors.value.username = 'Name must be at least 3 characters'
-  } else {
-    errors.value.username = null
-  }
-}
-
-const validatePassword = (blur) => {
-  const password = formData.value.password
-  const minLength = 8
-  const hasUppercase = /[A-Z]/.test(password)
-  const hasLowercase = /[a-z]/.test(password)
-  const hasNumber = /\d/.test(password)
-  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password)
-
-  if (password.length < minLength) {
-    if (blur) errors.value.password = `Password must be at least ${minLength} characters long.`
-  } else if (!hasUppercase) {
-    if (blur) errors.value.password = 'Password must contain at least one uppercase letter.'
-  } else if (!hasLowercase) {
-    if (blur) errors.value.password = 'Password must contain at least one lowercase letter.'
-  } else if (!hasNumber) {
-    if (blur) errors.value.password = 'Password must contain at least one number.'
-  } else if (!hasSpecialChar) {
-    if (blur) errors.value.password = 'Password must contain at least one special character.'
-  } else {
-    errors.value.password = null
-  }
-}
-
-const validateConfirmPassword = (blur) => {
-  if (formData.value.confirmPassword !== formData.value.password) {
-    if (blur) errors.value.confirmPassword = 'Passwords do not match';
-  } else {
-    errors.value.confirmPassword = null;
-  }
-}
-
-const validateReason = (blur) => {
-  const reason = formData.value.reason.toLowerCase();
-  if (reason.includes('friend')) {
-    errors.value.reason = 'Great to have a friend';
-  } else {
-    errors.value.reason = null;
-  }
-}
-
-</script>
-
 <template>
   <!-- 🗄️ W3. Library Registration Form -->
   <div class="container mt-5">
@@ -163,7 +58,6 @@ const validateReason = (blur) => {
                 {{ errors.confirmPassword }}
               </div>
             </div>
-          
           </div>
           <div class="row mb-3">
             <div class="col-md-6 col-sm-6">
@@ -236,6 +130,110 @@ const validateReason = (blur) => {
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+
+const formData = ref({
+  username: '',
+  password: '',
+  confirmPassword: '',
+  isAustralian: false,
+  reason: '',
+  gender: ''
+  // suburb: 'Clayton'
+})
+
+const submittedCards = ref([])
+
+const submitForm = () => {
+  validateName(true)
+  validatePassword(true)
+  validateConfirmPassword(true)
+  if (!errors.value.username && !errors.value.password && !errors.value.confirmPassword) {
+    submittedCards.value.push({ ...formData.value })
+    clearForm()
+  }
+}
+
+const clearForm = () => {
+  formData.value = {
+    username: '',
+    password: '',
+    confirmPassword: '',
+    isAustralian: false,
+    reason: '',
+    gender: ''
+  }
+  errors.value = {
+    username: null,
+    password: null,
+    confirmPassword: null,
+    resident: null,
+    gender: null,
+    reason: null
+  }
+}
+
+const errors = ref({
+  username: null,
+  password: null,
+  confirmPassword: null,
+  resident: null,
+  gender: null,
+  reason: null
+})
+
+const validateName = (blur) => {
+  if (formData.value.username.length < 3) {
+    if (blur) errors.value.username = 'Name must be at least 3 characters'
+  } else {
+    errors.value.username = null
+  }
+}
+
+const validatePassword = (blur) => {
+  const password = formData.value.password
+  const minLength = 8
+  const hasUppercase = /[A-Z]/.test(password)
+  const hasLowercase = /[a-z]/.test(password)
+  const hasNumber = /\d/.test(password)
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password)
+
+  if (password.length < minLength) {
+    if (blur) errors.value.password = `Password must be at least ${minLength} characters long.`
+  } else if (!hasUppercase) {
+    if (blur) errors.value.password = 'Password must contain at least one uppercase letter.'
+  } else if (!hasLowercase) {
+    if (blur) errors.value.password = 'Password must contain at least one lowercase letter.'
+  } else if (!hasNumber) {
+    if (blur) errors.value.password = 'Password must contain at least one number.'
+  } else if (!hasSpecialChar) {
+    if (blur) errors.value.password = 'Password must contain at least one special character.'
+  } else {
+    errors.value.password = null
+  }
+}
+
+const validateConfirmPassword = (blur) => {
+  if (formData.value.confirmPassword !== formData.value.password) {
+    if (blur) errors.value.confirmPassword = 'Passwords do not match'
+  } else {
+    errors.value.confirmPassword = null
+  }
+}
+
+const validateReason = (blur) => {
+  const reason = formData.value.reason.toLowerCase()
+  if (reason.includes('friend')) {
+    errors.value.reason = 'Great to have a friend'
+  } else {
+    errors.value.reason = null
+  }
+}
+</script>
 
 <style scoped>
 .container {

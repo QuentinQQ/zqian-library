@@ -10,14 +10,36 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/about" class="nav-link" active-class="active">
-            About
-          </router-link>
+          <router-link to="/about" class="nav-link" active-class="active"> About </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/login" class="nav-link" active-class="active"> Log in </router-link>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" active-class="active" @click="handleLogout">Log out</button>
         </li>
       </ul>
     </header>
   </div>
 </template>
+
+<script setup>
+import router from '../router'
+import { useAuth } from '../router/authenticate'
+
+const { isAuthenticated, logout } = useAuth()
+
+const handleLogout = () => {
+  if (router.currentRoute.value.name === 'About') {
+    logout()
+    alert('You have been logged out.')
+    router.push({ name: 'Home' })
+  } else {
+    logout()
+    alert('You have been logged out.')
+  }
+}
+</script>
 
 <style scoped>
 .b-example-divider {

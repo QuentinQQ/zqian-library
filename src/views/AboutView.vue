@@ -1,14 +1,26 @@
 <template>
-    <div class="container about">
+  <div class="container about">
+    <div v-if="isAuthenticated">
       <h1 class="text-center">About Our Library</h1>
-      <p class="text-left">Welcome to our digital library! We're dedicated to providing a vast collection of books and resources to our community.</p>
+      <p class="text-left">
+        Welcome to our digital library! We're dedicated to providing a vast collection of books and
+        resources to our community.
+      </p>
     </div>
-  </template>
-  
-  <script setup>
-  // No script needed for now
-  </script>
-  
-  <style>
-  
-  </style>
+    <div v-else>
+      <h1 class="text-center">Access Denied</h1>
+      <p class="text-center">You do not have permission to view this page. Please log in first.</p>
+      <div class="text-center">
+        <router-link to="/login" class="btn btn-primary">Go to Login</router-link>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { useAuth } from '../router/authenticate'
+
+const { isAuthenticated } = useAuth() // Correctly import and use the authentication state
+</script>
+
+<style></style>
