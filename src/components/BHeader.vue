@@ -16,6 +16,16 @@
           <router-link to="/login" class="nav-link" active-class="active"> Log in </router-link>
         </li>
         <li class="nav-item">
+          <router-link to="/Firelogin" class="nav-link" active-class="active">
+            Firebase Log in
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/FireRegister" class="nav-link" active-class="active">
+            Firebase Register
+          </router-link>
+        </li>
+        <li class="nav-item">
           <button class="nav-link" active-class="active" @click="handleLogout">Log out</button>
         </li>
       </ul>

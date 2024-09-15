@@ -8,6 +8,8 @@ import LoginView from '@/views/LoginView.vue'
 import {
     useAuth
 } from './authenticate'
+import FirebaseSigninView from '@/views/FirebaseSigninView.vue'
+import FirebaseRegisterView from '@/views/FirebaseRegisterView.vue'
 
 const {
     isAuthenticated
@@ -27,7 +29,17 @@ const routes = [{
         path: '/about',
         name: 'About',
         component: AboutView
-    }
+    },
+    {
+        path: '/FireLogin',
+        name: 'FireLogin',
+        component: FirebaseSigninView
+    },
+    {
+        path: '/FireRegister',
+        name: 'FireRegister',
+        component: FirebaseRegisterView
+    },
 ]
 
 
