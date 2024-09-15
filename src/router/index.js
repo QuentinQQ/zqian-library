@@ -13,6 +13,7 @@ import FirebaseRegisterView from '@/views/FirebaseRegisterView.vue'
 import AddBookView from '@/views/AddBookView.vue'
 import UpdateBookView from '@/views/UpdateBookView.vue'
 import DeleteBookView from '@/views/DeleteBookView.vue'
+import SearchBookView from '@/views/SearchBookView.vue'
 
 const {
     isAuthenticated
@@ -57,6 +58,11 @@ const routes = [{
         path: '/deletebook',
         name: 'DeleteBook',
         component: DeleteBookView
+    },
+    {
+        path: '/searchbook',
+        name: 'SearchBook',
+        component: SearchBookView
     }
 ]
 

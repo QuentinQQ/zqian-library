@@ -39,6 +39,11 @@
           </router-link>
         </li>
         <li class="nav-item">
+          <router-link to="/searchbook" class="nav-link" active-class="active">
+            Search Book
+          </router-link>
+        </li>
+        <li class="nav-item">
           <button class="nav-link" active-class="active" @click="handleFirebaseLogout">
             Firebase Log out
           </button>

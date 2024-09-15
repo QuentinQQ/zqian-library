@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Books with ISBN > 1000</h1>
+    <p>List the top 10 books with ISBN greater than 1000 in ascending order</p>
     <ul>
       <li v-for="book in books" :key="book.id">{{ book.name }} - ISBN: {{ book.isbn }}</li>
     </ul>
@@ -10,7 +11,7 @@
 <script>
 import { ref, onMounted } from 'vue'
 import db from '../firebase/init.js'
-import { collection, query, where, getDocs } from 'firebase/firestore'
+import { collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore'
 
 export default {
   setup() {
@@ -18,7 +19,12 @@ export default {
 
     const fetchBooks = async () => {
       try {
-        const q = query(collection(db, 'books'), where('isbn', '>', 1000))
+        const q = query(
+          collection(db, 'books'),
+          where('isbn', '>', 1000),
+          orderBy('isbn', 'asc'),
+          limit(10)
+        )
         const querySnapshot = await getDocs(q)
         const booksArray = []
         querySnapshot.forEach((doc) => {
