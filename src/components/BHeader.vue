@@ -26,6 +26,11 @@
           </router-link>
         </li>
         <li class="nav-item">
+          <button class="nav-link" active-class="active" @click="handleFirebaseLogout">
+            Firebase Log out
+          </button>
+        </li>
+        <li class="nav-item">
           <button class="nav-link" active-class="active" @click="handleLogout">Log out</button>
         </li>
       </ul>
@@ -36,8 +41,28 @@
 <script setup>
 import router from '../router'
 import { useAuth } from '../router/authenticate'
+import { getAuth, signOut } from 'firebase/auth'
 
 const { isAuthenticated, logout } = useAuth()
+
+const handleFirebaseLogout = () => {
+  const auth = getAuth()
+  const user = auth.currentUser
+
+  if (user) {
+    console.log('Signing out user:', user)
+  }
+
+  signOut(auth)
+    .then(() => {
+      console.log('User signed out successfully.')
+      alert('You have been logged out.')
+      router.push('/login')
+    })
+    .catch((error) => {
+      console.error('Error during logout:', error)
+    })
+}
 
 const handleLogout = () => {
   logout()

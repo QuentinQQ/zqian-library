@@ -51,11 +51,11 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     if (to.name === 'About' && !isAuthenticated.value) {
         console.log("Access denied: Not authenticated");
-        console.log("isAuthenticated.value:", isAuthenticated.value);
+        // console.log("isAuthenticated.value:", isAuthenticated.value);
         next();
     } else {
         console.log("Access success!");
-        console.log("isAuthenticated.value:", isAuthenticated.value);
+        // console.log("isAuthenticated.value:", isAuthenticated.value);
         next();
     }
 });
