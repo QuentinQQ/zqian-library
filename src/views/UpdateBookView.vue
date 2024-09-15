@@ -36,23 +36,19 @@ import { collection, query, where, getDocs, updateDoc, doc } from 'firebase/fire
 
 export default {
   setup() {
-    // Reactive variables for original and new book data
     const originalIsbn = ref('')
     const originalName = ref('')
     const newIsbn = ref('')
     const newName = ref('')
 
-    // Function to update the book
     const updateBook = async () => {
       try {
-        // Convert the original ISBN to a number
         const originalIsbnNumber = Number(originalIsbn.value)
         if (isNaN(originalIsbnNumber)) {
           alert('Original ISBN must be a valid number')
           return
         }
 
-        // Create a query to find the book by ISBN and name
         const q = query(
           collection(db, 'books'),
           where('isbn', '==', originalIsbnNumber),
@@ -68,16 +64,14 @@ export default {
           return
         }
 
-        // Update the first matched book (assuming ISBN and name are unique)
         const docRef = querySnapshot.docs[0].ref
 
-        // Update the book with new information
         await updateDoc(docRef, {
           isbn: Number(newIsbn.value),
           name: newName.value
         })
 
-        // Clear form fields after a successful update
+        // Clear
         originalIsbn.value = ''
         originalName.value = ''
         newIsbn.value = ''

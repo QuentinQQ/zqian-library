@@ -1,16 +1,12 @@
 <template>
   <div>
-    <h1>Add Book</h1>
-    <form @submit.prevent="updateBook">
+    <h1>Delete Book</h1>
+    <form @submit.prevent="deleteBook">
       <div>
         <label for="isbn">ISBN:</label>
         <input type="text" v-model="isbn" id="isbn" required />
       </div>
-      <div>
-        <label for="name">Name:</label>
-        <input type="text" v-model="name" id="name" required />
-      </div>
-      <button type="submit">Add Book</button>
+      <button type="submit">Delete Book</button>
     </form>
   </div>
 </template>
@@ -18,16 +14,13 @@
 <script>
 import { ref } from 'vue'
 import db from '../firebase/init.js'
-import { collection, addDoc } from 'firebase/firestore'
-
-import BookList from '../components/BookList.vue'
+import { collection, query, where, getDocs, deleteDoc, doc } from 'firebase/firestore'
 
 export default {
   setup() {
     const isbn = ref('')
-    const name = ref('')
 
-    const addBook = async () => {
+    const deleteBook = async () => {
       try {
         const isbnNumber = Number(isbn.value)
         if (isNaN(isbnNumber)) {
@@ -35,26 +28,35 @@ export default {
           return
         }
 
-        await addDoc(collection(db, 'books'), {
-          isbn: isbnNumber,
-          name: name.value
-        })
+        // Create a query to find
+        const q = query(collection(db, 'books'), where('isbn', '==', isbnNumber))
+
+        // get query results
+        const querySnapshot = await getDocs(q)
+
+        // check if any book found
+        if (querySnapshot.empty) {
+          alert('No book found with the given ISBN.')
+          return
+        }
+
+        // get the reference of finded book
+        const docRef = querySnapshot.docs[0].ref
+
+        // delete
+        await deleteDoc(docRef)
+
         isbn.value = ''
-        name.value = ''
-        alert('Book added successfully!')
+        alert('Book deleted successfully!')
       } catch (error) {
-        console.error('Error adding book: ', error)
+        console.error('Error deleting book: ', error)
       }
     }
 
     return {
       isbn,
-      name,
-      addBook
+      deleteBook
     }
-  },
-  components: {
-    BookList
   }
 }
 </script>

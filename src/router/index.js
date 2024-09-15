@@ -50,7 +50,7 @@ const routes = [{
     },
     {
         path: '/updatebook',
-        name: 'AddBook',
+        name: 'UpdateBook',
         component: UpdateBookView
     },
     {
