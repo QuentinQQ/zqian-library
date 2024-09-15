@@ -15,15 +15,32 @@ const password = ref('')
 const router = useRouter()
 const auth = getAuth()
 
+const checkIfAdmin = (email) => {
+  if (email === 'admin@email.com') {
+    return true
+  }
+  return false
+}
+
 const signin = () => {
   signInWithEmailAndPassword(getAuth(), email.value, password.value)
     .then((data) => {
-      console.log('Firebase Register Successful!')
-      router.push('/')
-      console.log(auth.currentUser) // To check the current User signed in
+      if (checkIfAdmin(email.value)) {
+        // if the user is an admin
+        console.log('Admin login successful!')
+        alert('Admin login successful!')
+        router.push('/')
+      } else {
+        // if the user is not an admin
+        console.log('User login successful!')
+        alert('User login successful!')
+        router.push('/')
+      }
+      console.log(auth.currentUser)
     })
     .catch((error) => {
       console.log(error.code)
+      alert('Error: ' + error.message)
     })
 }
 </script>
