@@ -14,6 +14,7 @@ import AddBookView from '@/views/AddBookView.vue'
 import UpdateBookView from '@/views/UpdateBookView.vue'
 import DeleteBookView from '@/views/DeleteBookView.vue'
 import SearchBookView from '@/views/SearchBookView.vue'
+import GetBookCountView from '@/views/GetBookCountView.vue'
 
 const {
     isAuthenticated
@@ -63,6 +64,11 @@ const routes = [{
         path: '/searchbook',
         name: 'SearchBook',
         component: SearchBookView
+    },
+    {
+        path: '/GetBookCount',
+        name: 'GetBookCount',
+        component: GetBookCountView
     }
 ]
 
