@@ -19,13 +19,34 @@
 import { ref } from 'vue'
 import db from '../firebase/init.js'
 import { collection, addDoc } from 'firebase/firestore'
-
+import axios from 'axios'
 import BookList from '../components/BookList.vue'
 
 export default {
   setup() {
     const isbn = ref('')
     const name = ref('')
+
+    const capitalizeName = async (name) => {
+      try {
+        const response = await axios.post(
+          'https://capitalizename-urqxwia3tq-uc.a.run.app',
+          {
+            name: name
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+        )
+
+        return response.data.name
+      } catch (error) {
+        console.error('Error capitalizing book name:', error)
+        throw error
+      }
+    }
 
     const addBook = async () => {
       try {
@@ -35,12 +56,16 @@ export default {
           return
         }
 
+        let capitalizedName = await capitalizeName(name.value)
+        console.log('Capitalized name:', capitalizedName) // test check
+
         await addDoc(collection(db, 'books'), {
           isbn: isbnNumber,
-          name: name.value
+          name: capitalizedName
         })
         isbn.value = ''
         name.value = ''
+        capitalizedName = ''
         alert('Book added successfully!')
       } catch (error) {
         console.error('Error adding book: ', error)

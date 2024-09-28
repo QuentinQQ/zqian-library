@@ -34,6 +34,36 @@ exports.countBooks = onRequest((req, res) => {
   });
 });
 
+
+exports.capitalizeName = onRequest((req, res) => {
+  cors(req, res, async () => {
+    try {
+      if (req.method !== "POST") {
+        res.status(405).send("Method Not Allowed");
+        return;
+      }
+
+      const {
+        name,
+      } = req.body;
+
+      if (!name) {
+        res.status(400).send("Missing request body");
+        return;
+      }
+
+      const capitalizedName = name.toUpperCase();
+
+      res.status(200).send({
+        name: capitalizedName,
+      });
+    } catch (error) {
+      console.error("Error capitalizing name:", error.message);
+      res.status(500).send("Error capitalizing name");
+    }
+  });
+});
+
 // Create and deploy your first functions
 // https://firebase.google.com/docs/functions/get-started
 
