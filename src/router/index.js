@@ -15,12 +15,17 @@ import UpdateBookView from '@/views/UpdateBookView.vue'
 import DeleteBookView from '@/views/DeleteBookView.vue'
 import SearchBookView from '@/views/SearchBookView.vue'
 import GetBookCountView from '@/views/GetBookCountView.vue'
+import WeatherView from '@/views/WeatherView.vue'
 
 const {
     isAuthenticated
 } = useAuth();
 
 const routes = [{
+        path: '/WeatherCheck',
+        name: 'WeatherCheck',
+        component: WeatherView
+    }, {
         path: '/login',
         name: 'Login',
         component: LoginView
