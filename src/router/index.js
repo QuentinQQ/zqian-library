@@ -16,12 +16,21 @@ import DeleteBookView from '@/views/DeleteBookView.vue'
 import SearchBookView from '@/views/SearchBookView.vue'
 import GetBookCountView from '@/views/GetBookCountView.vue'
 import WeatherView from '@/views/WeatherView.vue'
-
+import CountBookAPI from '@/views/CountBookAPI.vue'
+import GetAllBookAPI from '@/views/GetAllBookAPI.vue'
 const {
     isAuthenticated
 } = useAuth();
 
 const routes = [{
+        path: '/GetAllBookAPI',
+        name: 'GetAllBookAPI',
+        component: GetAllBookAPI
+    }, {
+        path: '/CountBookAPI',
+        name: 'CountBookAPI',
+        component: CountBookAPI
+    }, {
         path: '/WeatherCheck',
         name: 'WeatherCheck',
         component: WeatherView

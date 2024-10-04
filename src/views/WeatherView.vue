@@ -73,6 +73,13 @@ export default {
     this.fetchCurrentLocationWeather()
   },
   methods: {
+    // If the user has entered a city, then make the API call
+    async fetchWeather() {
+      if (this.city) {
+        const url = `http://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${apikey}`
+        await this.fetchWeatherData(url)
+      }
+    },
     //Async in a easy to understand way means the method will run in backend thread,
     //And it won't occupy the main thread, so the user experience is still smooth
     async fetchCurrentLocationWeather() {
