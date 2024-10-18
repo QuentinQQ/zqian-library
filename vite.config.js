@@ -23,5 +23,7 @@ export default defineConfig({
     }
   },
 
-  publicPath: process.env.NODE_ENV === 'production' ? '/zqian-library/' : '/'
+  // publicPath: process.env.NODE_ENV === 'production' ? '/zqian-library/' : '/'
+  base: import.meta.env.MODE === 'production' ? '/zqian-library/' : '/'
+
 })
