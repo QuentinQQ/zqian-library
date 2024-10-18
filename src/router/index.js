@@ -18,6 +18,7 @@ import GetBookCountView from '@/views/GetBookCountView.vue'
 import WeatherView from '@/views/WeatherView.vue'
 import CountBookAPI from '@/views/CountBookAPI.vue'
 import GetAllBookAPI from '@/views/GetAllBookAPI.vue'
+
 const {
     isAuthenticated
 } = useAuth();
@@ -26,15 +27,18 @@ const routes = [{
         path: '/GetAllBookAPI',
         name: 'GetAllBookAPI',
         component: GetAllBookAPI
-    }, {
+    },
+    {
         path: '/CountBookAPI',
         name: 'CountBookAPI',
         component: CountBookAPI
-    }, {
+    },
+    {
         path: '/WeatherCheck',
         name: 'WeatherCheck',
         component: WeatherView
-    }, {
+    },
+    {
         path: '/login',
         name: 'Login',
         component: LoginView
@@ -88,7 +92,8 @@ const routes = [{
 
 
 const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
+    history: createWebHistory(
+        import.meta.env.BASE_URL),
     routes
 });
 
@@ -103,18 +108,6 @@ router.beforeEach((to, from, next) => {
         next();
     }
 });
-// router.beforeEach((to, from, next) => {
-//     if (to.name === 'About' && !isAuthenticated.value) {
-//         console.log("Access denied: Not authenticated");
-//         console.log("isAuthenticated.value:", isAuthenticated.value);
-//         next({
-//             name: 'Login'
-//         });
-//     } else {
-//         console.log("Access success!");
-//         console.log("isAuthenticated.value:", isAuthenticated.value);
-//         next();
-//     }
-// });
+
 
 export default router
