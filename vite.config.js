@@ -21,9 +21,6 @@ export default defineConfig({
         import.meta.url))
     }
   }
-})
 
-module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ?
-    '/zqian-library/' : '/'
-}
+  publicPath: process.env.NODE_ENV === 'production' ? '/zqian-library/' : '/'
+})
